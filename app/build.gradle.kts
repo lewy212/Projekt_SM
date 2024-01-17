@@ -58,5 +58,7 @@ dependencies {
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation ("androidx.camera:camera-camera2:1.1.0")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
 }

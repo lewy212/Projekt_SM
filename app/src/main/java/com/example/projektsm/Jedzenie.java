@@ -1,6 +1,9 @@
 package com.example.projektsm;
 
 
+import android.media.Image;
+import android.widget.ImageView;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -20,6 +23,7 @@ public class Jedzenie {
     private int bialka;
     private int weglowodany;
     private Date dataDodania;
+    private String sciezkaZdjecia;
 
     public Jedzenie(String nazwa, int tluszcze, int bialka, int weglowodany, int kalorie) {
         this.nazwa = nazwa;
@@ -28,6 +32,7 @@ public class Jedzenie {
         this.bialka = bialka;
         this.weglowodany = weglowodany;
         this.dataDodania = new Date();
+        this.sciezkaZdjecia = "";
     }
     @Ignore
     public Jedzenie(String nazwa, int tluszcze, int bialka, int weglowodany) {
@@ -37,6 +42,7 @@ public class Jedzenie {
         this.weglowodany = weglowodany;
         this.kalorie = oblicz_kalorie_potrawy(tluszcze,bialka,weglowodany);
         this.dataDodania = new Date();
+        this.sciezkaZdjecia = "";
     }
 
     public int oblicz_kalorie_potrawy(int tluszcze, int bialka, int weglowodany)
@@ -100,6 +106,13 @@ public class Jedzenie {
         this.dataDodania = dataDodania;
     }
 
+    public String getSciezkaZdjecia() {
+        return sciezkaZdjecia;
+    }
+
+    public void setSciezkaZdjecia(String sciezkaZdjecia) {
+        this.sciezkaZdjecia = sciezkaZdjecia;
+    }
 
     public static class DateConverter {
         @TypeConverter

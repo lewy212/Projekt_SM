@@ -127,7 +127,7 @@
         android:textSize="18sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/aparatZdjecie"
         android:layout_width="match_parent"
         android:layout_height="67dp"
         tools:srcCompat="@drawable/ic_camera" />

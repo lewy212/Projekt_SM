@@ -235,6 +235,8 @@ public class MainActivity extends AppCompatActivity {
                 editedJedzenie.setTluszcze(Integer.parseInt(data.getStringExtra(EditJedzenieActivity.EXTRA_EDIT_JEDZENIE_TLUSZCZE)));
                 editedJedzenie.setBialka(Integer.parseInt(data.getStringExtra(EditJedzenieActivity.EXTRA_EDIT_JEDZENIE_BIALKA)));
                 editedJedzenie.setWeglowodany(Integer.parseInt(data.getStringExtra(EditJedzenieActivity.EXTRA_EDIT_JEDZENIE_WEGLOWODANY)));
+                editedJedzenie.setSciezkaZdjecia(data.getStringExtra(EditJedzenieActivity.EXTRA_EDIT_ZDJECIE_SCIEZKA));
+                Log.d("sciezka v3",editedJedzenie.getSciezkaZdjecia());
                 jedzenieViewModel.update(editedJedzenie);
                 editedJedzenie = null;
                 Snackbar.make(findViewById(R.id.coordinator_layout),
@@ -311,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(EditJedzenieActivity.EXTRA_EDIT_JEDZENIE_TLUSZCZE,String.valueOf(jedzenie.getTluszcze()) );
             intent.putExtra(EditJedzenieActivity.EXTRA_EDIT_JEDZENIE_BIALKA,String.valueOf(jedzenie.getBialka()) );
             intent.putExtra(EditJedzenieActivity.EXTRA_EDIT_JEDZENIE_WEGLOWODANY,String.valueOf(jedzenie.getWeglowodany()) );
+            intent.putExtra(EditJedzenieActivity.EXTRA_EDIT_ZDJECIE_SCIEZKA,jedzenie.getSciezkaZdjecia());
             startActivityForResult(intent, EDIT_JEDZENIE_ACTIVITY_REQUEST_CODE);
         }
 
