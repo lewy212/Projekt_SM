@@ -70,7 +70,7 @@ public class EditJedzenieActivity extends AppCompatActivity {
         if (starter.hasExtra(EXTRA_EDIT_ZDJECIE_SCIEZKA))
         {
             if(!starter.getStringExtra(EXTRA_EDIT_ZDJECIE_SCIEZKA).equals(""))
-                loadImageWithGlide(starter.getStringExtra(EXTRA_EDIT_ZDJECIE_SCIEZKA));
+                zaladujZdjecie(starter.getStringExtra(EXTRA_EDIT_ZDJECIE_SCIEZKA));
         }
 
         Button buttonTakePhoto = findViewById(R.id.button_take_photo);
@@ -78,15 +78,7 @@ public class EditJedzenieActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                try{
-//                    Intent intent = new Intent();
-//                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivity(intent);
-//                }
-//                catch(Exception e){
-//                    e.printStackTrace();
-//                }
-                dispatchTakePictureIntent();
+                zrobZdjecie();
             }
         });
 
@@ -126,23 +118,17 @@ public class EditJedzenieActivity extends AppCompatActivity {
             }
         });
     }
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent();
-        takePictureIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+    private void zrobZdjecie() {
+        Intent zrobZdjecieIntent = new Intent();
+        zrobZdjecieIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         try{
             Intent intent = new Intent();
             intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            startActivityForResult(zrobZdjecieIntent, REQUEST_IMAGE_CAPTURE);
         }
         catch(Exception e){
             e.printStackTrace();
         }
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        } else {
-//            Toast.makeText(this, "Nie można uruchomić aparatu", Toast.LENGTH_SHORT).show();
-//            Log.e("Camera", "Aparat nie został uruchomiony, brak aktywności do obsługi");
-//        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -161,17 +147,16 @@ public class EditJedzenieActivity extends AppCompatActivity {
 
     // Metoda do zapisu zdjęcia do pliku
     private String saveImageToFile(Bitmap imageBitmap) {
-        // Możesz użyć np. nazwy unikalnej opartej na dacie i czasie dla pliku
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + ".jpg";
 
-        // Uzyskaj dostęp do katalogu, w którym chcesz zapisać zdjęcie
+
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-        // Stwórz obiekt File dla nowego pliku
         File imageFile = new File(storageDir, imageFileName);
 
-        // Zapisz bitmapę do pliku
+
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
@@ -179,10 +164,10 @@ public class EditJedzenieActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Zwróć pełną ścieżkę do zapisanego pliku
+
         return imageFile.getAbsolutePath();
     }
-    private void loadImageWithGlide(String imagePath) {
+    private void zaladujZdjecie(String imagePath) {
         ImageView imageView = findViewById(R.id.aparatZdjecie);
 
         Glide.with(this)
