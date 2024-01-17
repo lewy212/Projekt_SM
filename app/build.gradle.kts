@@ -57,4 +57,6 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:3.10.0")
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("androidx.camera:camera-camera2:1.1.0")
+
 }

@@ -183,12 +183,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.new_jedzenie:
                 Intent intent = new Intent(MainActivity.this, EditJedzenieActivity.class);
                 startActivityForResult(intent, NEW_JEDZENIE_ACTIVITY_REQUEST_CODE);
+                break;
             case R.id.new_gotowe:
                 Intent intent2 = new Intent(MainActivity.this, DodajGotoweActivity.class);
                 startActivityForResult(intent2, NEW_JEDZENIE_GOTOWE_ACTIVITY_REQUEST_CODE);
+                break;
             case R.id.cytat_menu:
                 Intent intent3 = new Intent(MainActivity.this, CytatActivity.class);
                 startActivity(intent3);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

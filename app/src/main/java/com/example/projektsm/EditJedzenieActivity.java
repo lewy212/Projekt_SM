@@ -4,11 +4,15 @@ package com.example.projektsm;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class EditJedzenieActivity extends AppCompatActivity {
@@ -17,6 +21,7 @@ public class EditJedzenieActivity extends AppCompatActivity {
     public static final String EXTRA_EDIT_JEDZENIE_BIALKA = "EDIT_JEDZENIE_BIALKA";
     public static final String EXTRA_EDIT_JEDZENIE_WEGLOWODANY = "EDIT_JEDZENIE_WEGLOWODANY";
     public static final String EXTRA_EDIT_JEDZENIE_KALORIE = "EDIT_JEDZENIE_KALORIE";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText editNazwaEditText;
     private EditText editTluszczeEditText;
     private EditText editBialkaEditText;
@@ -44,6 +49,25 @@ public class EditJedzenieActivity extends AppCompatActivity {
             editWeglowodanyEditText.setText(starter.getStringExtra(EXTRA_EDIT_JEDZENIE_WEGLOWODANY));
         if (starter.hasExtra(EXTRA_EDIT_JEDZENIE_BIALKA))
             editBialkaEditText.setText(starter.getStringExtra(EXTRA_EDIT_JEDZENIE_BIALKA));
+
+        Button buttonTakePhoto = findViewById(R.id.button_take_photo);
+        buttonTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                try{
+//                    Intent intent = new Intent();
+//                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivity(intent);
+//                }
+//                catch(Exception e){
+//                    e.printStackTrace();
+//                }
+                dispatchTakePictureIntent();
+            }
+        });
+
+
 
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
@@ -76,5 +100,33 @@ public class EditJedzenieActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent();
+        takePictureIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        try{
+                    Intent intent = new Intent();
+                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        } else {
+//            Toast.makeText(this, "Nie można uruchomić aparatu", Toast.LENGTH_SHORT).show();
+//            Log.e("Camera", "Aparat nie został uruchomiony, brak aktywności do obsługi");
+//        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            // Tutaj możesz coś zrobić z uzyskanym zdjęciem (np. zapis do pliku, wyświetlenie w ImageView itp.)
+        }
     }
 }
